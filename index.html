@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShaktiSeva - Worker Management Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header" id="header" style="display: none;">
+            <h1 id="headerTitle">ShaktiSeva Portal</h1>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- Home Screen -->
+        <div class="screen active" id="homeScreen">
+            <div class="role-selection">
+                <h2>Welcome to ShaktiSeva</h2>
+                <div class="role-cards">
+                    <div class="role-card" onclick="selectRole('worker')">
+                        <div class="role-icon">👷</div>
+                        <h3>Worker</h3>
+                        <p>Access your profile, upskill resources, and submit queries</p>
+                    </div>
+                    <div class="role-card" onclick="selectRole('admin')">
+                        <div class="role-icon">👨‍💼</div>
+                        <h3>Admin</h3>
+                        <p>Manage workers and handle queries efficiently</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Worker Login -->
+        <div class="screen" id="workerLoginScreen">
+            <div class="auth-container">
+                <h2>Worker Login</h2>
+                <div class="message" id="workerLoginMessage"></div>
+                <div class="form-group">
+                    <label>Worker ID</label>
+                    <input type="text" id="workerLoginId" placeholder="Enter your Worker ID">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="workerLoginPass" placeholder="Enter your password">
+                </div>
+                <button class="btn" onclick="workerLogin()">Login</button>
+                <div class="link-btn" onclick="showScreen('workerRegisterScreen')">New Worker? Register Here</div>
+                <button class="btn btn-secondary" onclick="showScreen('homeScreen')">Back to Home</button>
+            </div>
+        </div>
+
+        <!-- Worker Register -->
+        <div class="screen" id="workerRegisterScreen">
+            <div class="auth-container">
+                <h2>Worker Registration</h2>
+                <div class="message" id="workerRegisterMessage"></div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="workerName" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="workerPhone" placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="workerEmail" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label>Profession</label>
+                    <select id="workerProfession">
+                        <option value="">Select Profession</option>
+                        <option value="carpenter">Carpenter</option>
+                        <option value="plumber">Plumber</option>
+                        <option value="electrician">Electrician</option>
+                        <option value="painter">Painter</option>
+                        <option value="mason">Mason</option>
+                        <option value="welder">Welder</option>
+                        <option value="mechanic">Mechanic</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Experience (Years)</label>
+                    <input type="number" id="workerExperience" placeholder="Years of experience">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea id="workerAddress" rows="3" placeholder="Enter your address"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="workerRegPassword" placeholder="Create a password">
+                </div>
+                <button class="btn" onclick="workerRegister()">Register</button>
+                <div class="link-btn" onclick="showScreen('workerLoginScreen')">Already Registered? Login Here</div>
+                <button class="btn btn-secondary" onclick="showScreen('homeScreen')">Back to Home</button>
+            </div>
+        </div>
+
+        <!-- Worker Dashboard -->
+        <div class="screen" id="workerDashboardScreen">
+            <h2>Worker Dashboard</h2>
+            <div class="dashboard-grid">
+                <div class="dashboard-card" onclick="showScreen('workerProfileScreen')">
+                    <h3>👤 Profile</h3>
+                    <p>View and manage your personal details</p>
+                </div>
+                <div class="dashboard-card" onclick="showScreen('workerUpskillScreen')">
+                    <h3>📚 Upskill</h3>
+                    <p>Access training videos and resources</p>
+                </div>
+                <div class="dashboard-card" onclick="showScreen('workerQueryScreen')">
+                    <h3>❓ Queries</h3>
+                    <p>Submit and track your complaints</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Worker Profile -->
+        <div class="screen" id="workerProfileScreen">
+            <button class="back-btn" onclick="showScreen('workerDashboardScreen')">← Back to Dashboard</button>
+            <h2>My Profile</h2>
+            <div class="profile-info" id="workerProfileInfo"></div>
+        </div>
+
+        <!-- Worker Upskill -->
+        <div class="screen" id="workerUpskillScreen">
+            <button class="back-btn" onclick="showScreen('workerDashboardScreen')">← Back to Dashboard</button>
+            <h2>Upskill Resources</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumbnail">▶️</div>
+                    <div class="video-info">
+                        <h4>Safety Guidelines</h4>
+                        <p>Essential safety practices for all workers</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">▶️</div>
+                    <div class="video-info">
+                        <h4>Tool Maintenance</h4>
+                        <p>Keep your tools in perfect condition</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">▶️</div>
+                    <div class="video-info">
+                        <h4>Advanced Techniques</h4>
+                        <p>Level up your professional skills</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">▶️</div>
+                    <div class="video-info">
+                        <h4>Customer Service</h4>
+                        <p>Build better client relationships</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">▶️</div>
+                    <div class="video-info">
+                        <h4>Quality Standards</h4>
+                        <p>Maintain excellence in your work</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-thumbnail">▶️</div>
+                    <div class="video-info">
+                        <h4>Time Management</h4>
+                        <p>Work efficiently and meet deadlines</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Worker Query -->
+        <div class="screen" id="workerQueryScreen">
+            <button class="back-btn" onclick="showScreen('workerDashboardScreen')">← Back to Dashboard</button>
+            <h2>Submit Query</h2>
+            <div class="message" id="queryMessage"></div>
+            <div class="form-group">
+                <label>Subject</label>
+                <input type="text" id="querySubject" placeholder="Brief subject of your query">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="queryDescription" rows="5" placeholder="Describe your issue or complaint in detail"></textarea>
+            </div>
+            <button class="btn" onclick="submitQuery()">Submit Query</button>
+            <h3 style="margin-top: 40px;">My Queries</h3>
+            <div class="query-list" id="myQueriesList"></div>
+        </div>
+
+        <!-- Admin Login -->
+        <div class="screen" id="adminLoginScreen">
+            <div class="auth-container">
+                <h2>Admin Login</h2>
+                <div class="message" id="adminLoginMessage"></div>
+                <div class="form-group">
+                    <label>Admin ID</label>
+                    <input type="text" id="adminLoginId" placeholder="Enter your Admin ID">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="adminLoginPass" placeholder="Enter your password">
+                </div>
+                <button class="btn" onclick="adminLogin()">Login</button>
+                <div class="link-btn" onclick="showScreen('adminRegisterScreen')">New Admin? Register Here</div>
+                <button class="btn btn-secondary" onclick="showScreen('homeScreen')">Back to Home</button>
+            </div>
+        </div>
+
+        <!-- Admin Register -->
+        <div class="screen" id="adminRegisterScreen">
+            <div class="auth-container">
+                <h2>Admin Registration</h2>
+                <div class="message" id="adminRegisterMessage"></div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="adminName" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="adminEmail" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="adminPhone" placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label>Department</label>
+                    <input type="text" id="adminDept" placeholder="Enter your department">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="adminRegPassword" placeholder="Create a password">
+                </div>
+                <button class="btn" onclick="adminRegister()">Register</button>
+                <div class="link-btn" onclick="showScreen('adminLoginScreen')">Already Registered? Login Here</div>
+                <button class="btn btn-secondary" onclick="showScreen('homeScreen')">Back to Home</button>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div class="screen" id="adminDashboardScreen">
+            <h2>Admin Dashboard</h2>
+            <div class="tabs">
+                <button class="tab active" onclick="showAdminTab('queries')">Queries</button>
+                <button class="tab" onclick="showAdminTab('workers')">Workers</button>
+            </div>
+            <div id="adminQueriesTab">
+                <h3>Worker Queries</h3>
+                <div class="query-list" id="adminQueriesList"></div>
+            </div>
+            <div id="adminWorkersTab" style="display: none;">
+                <h3>Registered Workers</h3>
+                <div class="worker-list" id="adminWorkersList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
